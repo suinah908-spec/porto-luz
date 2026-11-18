@@ -1,7 +1,7 @@
-// The story: twelve missions for Mara Voss, plus taxi fares and courier runs that
-// keep the cash flowing between them. Each objective is one of a small set of kinds
-// (goto, pickup, steal, tail, defend, escape, race, cooldown), so the engine stays
-// simple while the missions themselves stay varied.
+// The story: thirteen missions for Mara Voss, plus taxi fares and courier runs
+// that keep the cash flowing between them. Each objective is one of a small set
+// of kinds (goto, pickup, steal, tail, defend, escape, race, cooldown), so the
+// engine stays simple while the missions themselves stay varied.
 import { CITY, MISSIONS, SAFEHOUSES } from './config.js';
 import { createRandom, groundDistance } from './random.js';
 import { createCarMesh } from './vehicles.js';
@@ -132,7 +132,7 @@ export function createMissions(game) {
   function startNextMission() {
     const next = game.save.missionsDone;
     if (next >= MISSIONS.length) {
-      game.hud.toast('All twelve missions complete — you are a Porto Luz legend.');
+      game.hud.toast('All thirteen missions complete — you are a Porto Luz legend.');
       return false;
     }
     return startMission(next);
@@ -187,13 +187,7 @@ export function createMissions(game) {
     if (!obj) return;
     stepTimer += dt;
     if (obj.type === 'goto' || obj.type === 'pickup' || obj.type === 'deliver' || obj.type === 'escape') {
-      if (obj.type === 'escape' && game.police.stars < 2 && stepTimer > 2) {
-        // The heat faded before the player arrived: still counts as reaching it.
-      }
       if (groundDistance(pos.x, pos.z, obj.x, obj.z) < (obj.radius || 8)) {
-        if (obj.type === 'escape' && game.police.stars < 2) {
-          // Reached the safehouse cold: the chase part is done, move on.
-        }
         advanceStep();
       }
     } else if (obj.type === 'steal') {

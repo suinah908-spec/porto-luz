@@ -45,9 +45,9 @@ export function createPlayer(scene, spawn) {
 }
 
 /**
- * Step the player on foot: WASD moves relative to the camera, Shift sprints, F punches
- * the nearest person in front, mouse click shoots when armed. Returns events for the
- * main loop: { punched, shot, hitPed }.
+ * Step the player on foot: WASD moves relative to the camera, Shift sprints, F
+ * punches the nearest person in front, mouse click shoots when armed. Returns
+ * events for the main loop: { punched, shot, hitPed }.
  */
 export function stepPlayerOnFoot(player, input, cameraAngle, dt, colliders, peds, onCrime) {
   const events = { punched: null, shot: false, hitPed: null };

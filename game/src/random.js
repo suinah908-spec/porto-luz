@@ -1,5 +1,5 @@
-// A small seeded RNG (mulberry32) so the same seed always builds the same Porto Luz:
-// the city, the traffic and the screenshot scenes are all reproducible from one number.
+// Seeded randomness for Porto Luz: mulberry32, so one seed always builds the
+// same city, the same traffic and the same screenshot scenes.
 export function createRandom(seed) {
   let a = seed >>> 0;
   function next() {

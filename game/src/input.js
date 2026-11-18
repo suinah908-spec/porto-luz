@@ -1,5 +1,6 @@
-// Keyboard and mouse: WASD to move/drive, mouse drag to orbit the camera, wheel to zoom.
-// Every key the game uses is listed here, so the help screen and the HUD never drift apart.
+// Keyboard and mouse: WASD to move/drive, mouse drag to orbit the camera, wheel
+// to zoom. Every key the game uses is listed here, so the help screen and the HUD
+// never drift apart.
 export const ACTION_CONFIRM = 'confirm';
 export const ACTION_PAUSE = 'pause';
 export const ACTION_INTERACT = 'interact';

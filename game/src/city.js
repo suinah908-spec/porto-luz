@@ -1,6 +1,7 @@
-// Porto Luz itself: the ground, the road grid, the five districts, the beach and the
-// harbour, plus the collision boxes the rest of the game drives and walks against.
-// Everything is built from one seeded RNG, so the same seed builds the same city.
+// Porto Luz itself: the ground, the road grid, the five districts, the beach and
+// the harbour, plus the collision boxes the rest of the game drives and walks
+// against. Everything is built from one seeded RNG, so the same seed always
+// builds the same city.
 import { CITY, PALETTE } from './config.js';
 import { createRandom } from './random.js';
 
@@ -59,7 +60,7 @@ export function isOnRoad(x, z) {
 }
 
 /**
- * Build the whole city into `scene` and return its collision boxes, road lines and
+ * Build the whole city into `scene` and return its collision boxes, clouds and
  * a few named places (garage, hospital, spawn) the missions and the player use.
  */
 export function createCity(scene, seed) {
@@ -113,7 +114,6 @@ export function createCity(scene, seed) {
 
   // Roads: one long plane per avenue and street, with a repeating centre line.
   const roadTex = roadTexture();
-  const roadMat = new THREE.MeshLambertMaterial({ map: roadTex });
   for (const a of CITY.avenues) {
     const tex = roadTex.clone();
     tex.needsUpdate = true;
@@ -283,7 +283,7 @@ export function createCity(scene, seed) {
   };
 }
 
-/** Push a circle (x, z, radius) out of every building box it overlaps. Returns true if pushed. */
+/** Push a circle (x, z, radius) out of every building box it overlaps. Returns the new point. */
 export function resolveBuildingCollisions(x, z, radius, colliders) {
   let pushed = false;
   for (const c of colliders) {

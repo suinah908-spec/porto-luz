@@ -70,7 +70,7 @@ export const CREW = {
 };
 
 /**
- * The 12 story missions. Objective kinds:
+ * The 13 story missions. Objective kinds:
  *  goto    — reach the marker (radius m)
  *  pickup  — reach the marker, then the next objective becomes the delivery
  *  tail    — stay 12–45 m behind the target car for `seconds`
@@ -146,6 +146,16 @@ export const MISSIONS = [
       ], text: 'Win the Grand Prix — 6 checkpoints' },
       { type: 'escape', x: -210, z: 210, radius: 9, text: 'Outrun the police to the safehouse' },
       { type: 'cooldown', text: 'Lose the wanted level — you are a legend now' },
+    ] },
+  { id: 13, title: 'The Last Delivery', giver: 'Luz Ferreira', payout: 3500,
+    brief: 'One last job before the crew goes quiet: Luz\'s master drive has to reach the Hills lookout in 100 seconds, and the whole city is awake. No mistakes.',
+    objectives: [
+      { type: 'pickup', x: 0, z: 0, radius: 7, text: 'Pick up the master drive in Old Town' },
+      { type: 'race', timeLimit: 100, checkpoints: [
+        { x: 140, z: 140 }, { x: 280, z: 70 }, { x: 280, z: -70 },
+      ], text: 'Race the master drive to the Hills — 3 checkpoints' },
+      { type: 'escape', x: 210, z: 210, radius: 9, text: 'Shake the heat and reach the Marina safehouse' },
+      { type: 'cooldown', text: 'Lose the wanted level — the crew is free' },
     ] },
 ];
 

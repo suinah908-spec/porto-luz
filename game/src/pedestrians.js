@@ -1,5 +1,6 @@
-// Pedestrians: the people of Porto Luz. They stroll the sidewalks, cross at corners,
-// and run when a crime happens near them. A few are attackers during defend missions.
+// Pedestrians: the people of Porto Luz. They stroll the sidewalks, cross at
+// corners, and run when a crime happens near them. A few are attackers during
+// defend missions.
 import { CITY } from './config.js';
 import { createRandom, groundDistance } from './random.js';
 

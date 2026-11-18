@@ -1,6 +1,6 @@
-// The HUD: cash, health, wanted stars, the mission objective, the speedometer, the
-// minimap, prompts, banners and the shop. All DOM — the 3D canvas stays clean.
-import { CITY } from './config.js';
+// The HUD: cash, health, wanted stars, the mission objective, the speedometer,
+// the minimap, prompts, banners and the shop. All DOM — the 3D canvas stays clean.
+import { CITY, MISSIONS } from './config.js';
 
 function $(id) { return document.getElementById(id); }
 
@@ -75,6 +75,7 @@ export function createHud() {
       $('ammo').textContent = G.player.armed
         ? `Pistol ${G.player.ammo} / 12 — click to shoot`
         : 'Unarmed — F to punch · find the pistol at the safehouse';
+      $('missionsdone').textContent = `Missions ${G.save.missionsDone} / ${MISSIONS.length}`;
       const stars = '★'.repeat(G.police.stars) + '☆'.repeat(5 - G.police.stars);
       $('stars').textContent = stars;
       const mins = Math.floor(G.clockMinutes % 1440);

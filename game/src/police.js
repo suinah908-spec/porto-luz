@@ -1,5 +1,5 @@
-// The wanted system: stars, police cars that chase and ram, and the helicopter that
-// arrives at three stars. Heat rises with crimes and falls when the player hides.
+// The wanted system: stars, police cars that chase and ram, and the helicopter
+// that arrives at three stars. Heat rises with crimes and falls when the player hides.
 import { WANTED } from './config.js';
 import { clamp, createRandom, groundDistance, wrapAngle } from './random.js';
 import { createCarMesh, driveCar } from './vehicles.js';

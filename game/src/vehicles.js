@@ -1,6 +1,7 @@
-// Cars: how one is built from boxes, how it drives, and the traffic that fills the city.
-// A car is a THREE.Group with a body, cabin, four wheels, headlights and taillights; the
-// physics is arcade — speed, steering and grip — so it feels good with a keyboard.
+// Cars: how one is built from boxes, how it drives, and the traffic that fills
+// the city. A car is a THREE.Group with a body, cabin, four wheels, headlights
+// and taillights; the physics is arcade — speed, steering and grip — so it feels
+// good with a keyboard.
 import { CAR, CITY } from './config.js';
 import { clamp, createRandom, groundDistance, wrapAngle } from './random.js';
 
@@ -122,7 +123,6 @@ function spawnTrafficCar(mesh, rng) {
  */
 export function driveCar(car, input, dt, colliders) {
   const tune = CAR[car.kind] || CAR.sedan;
-  const forward = new THREE.Vector3(Math.sin(car.angle), 0, Math.cos(car.angle));
   if (input.forward) car.speed += tune.accel * dt;
   if (input.back) car.speed -= tune.accel * 0.7 * dt;
   if (input.brake) {
