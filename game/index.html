@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Porto Luz — Open World Crime Game</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0e1420; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  #game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .overlay { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #f2f5f8; background: linear-gradient(180deg, rgba(10,20,40,.25), rgba(10,20,40,.78)); z-index: 20; text-align: center; }
+  .overlay.hidden { display: none; }
+  .overlay h1 { font-size: 64px; margin: 0; letter-spacing: 6px; color: #ffd166; text-shadow: 0 4px 24px rgba(0,0,0,.6); }
+  .overlay h2 { font-size: 30px; margin: 0 0 8px; letter-spacing: 3px; }
+  .overlay p { max-width: 560px; line-height: 1.5; margin: 8px 0; color: #dfe7ef; }
+  .overlay button { font: inherit; font-size: 18px; padding: 12px 28px; margin: 6px; border: 0; border-radius: 8px; background: #ffd166; color: #1a2230; cursor: pointer; font-weight: 700; }
+  .overlay button.ghost { background: transparent; color: #f2f5f8; border: 2px solid #f2f5f8; }
+  .overlay .keys { font-size: 14px; color: #c8d2de; line-height: 1.9; }
+  #hud { position: fixed; inset: 0; pointer-events: none; z-index: 10; color: #fff; display: none; }
+  #hud.on { display: block; }
+  .panel { background: rgba(10, 18, 30, .55); border-radius: 10px; padding: 8px 12px; backdrop-filter: blur(2px); }
+  #topleft { position: absolute; top: 12px; left: 12px; }
+  #topleft .cash { font-size: 22px; font-weight: 800; color: #7cf29b; }
+  .bar { width: 180px; height: 10px; background: rgba(255,255,255,.25); border-radius: 5px; margin-top: 6px; overflow: hidden; }
+  .bar > div { height: 100%; background: #4fc3f7; }
+  #healthbar > div { background: #e5534b; }
+  #topright { position: absolute; top: 12px; right: 12px; text-align: right; }
+  #stars { font-size: 24px; letter-spacing: 4px; color: #ffd166; text-shadow: 0 2px 8px #000; }
+  #clock { font-size: 18px; font-weight: 700; }
+  #radio { font-size: 13px; color: #cfe3ff; margin-top: 4px; }
+  #objective { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); max-width: 520px; text-align: center; }
+  #objective .mission { font-size: 13px; color: #ffd166; font-weight: 700; letter-spacing: 1px; }
+  #objective .text { font-size: 17px; font-weight: 600; text-shadow: 0 2px 6px #000; }
+  #objective .dist { font-size: 14px; color: #cfe3ff; }
+  #minimap { position: absolute; left: 12px; bottom: 12px; border: 2px solid rgba(255,255,255,.5); border-radius: 50%; background: rgba(10,18,30,.6); }
+  #speedo { position: absolute; right: 16px; bottom: 14px; text-align: right; font-size: 30px; font-weight: 800; text-shadow: 0 2px 8px #000; }
+  #speedo small { font-size: 13px; font-weight: 400; color: #cfe3ff; display: block; }
+  #prompt { position: absolute; left: 50%; bottom: 110px; transform: translateX(-50%); font-size: 16px; font-weight: 700; background: rgba(10,18,30,.65); padding: 8px 16px; border-radius: 8px; display: none; }
+  #banner { position: absolute; left: 50%; top: 26%; transform: translateX(-50%); font-size: 34px; font-weight: 900; color: #ffd166; text-shadow: 0 3px 14px #000; display: none; text-align: center; }
+  #banner small { display: block; font-size: 17px; color: #fff; font-weight: 600; }
+  #toast { position: absolute; left: 50%; bottom: 170px; transform: translateX(-50%); font-size: 15px; background: rgba(10,18,30,.65); padding: 6px 14px; border-radius: 8px; display: none; }
+  #crosshair { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; display: none; }
+  #crosshair::before, #crosshair::after { content: ""; position: absolute; background: #fff; }
+  #crosshair::before { left: 8px; top: 0; width: 2px; height: 18px; }
+  #crosshair::after { left: 0; top: 8px; width: 18px; height: 2px; }
+  #help { position: absolute; right: 12px; top: 110px; font-size: 12px; line-height: 1.7; color: #dfe7ef; }
+  #shopitems button { display: block; width: 320px; margin: 8px auto; }
+</style>
+</head>
+<body>
+<canvas id="game" aria-label="Porto Luz: an open-world crime game. Drive, walk, take on missions and outrun the police."></canvas>
+<p id="status" role="status" aria-live="polite"></p>
+
+<div id="hud">
+  <div id="topleft" class="panel">
+    <div class="cash" id="cash">$0</div>
+    <div class="bar" id="healthbar"><div id="healthfill" style="width:100%"></div></div>
+    <div class="bar"><div id="armourfill" style="width:0%"></div></div>
+    <div id="ammo" style="font-size:13px;margin-top:4px">Pistol 12 / 12</div>
+  </div>
+  <div id="topright" class="panel">
+    <div id="stars">☆☆☆☆☆</div>
+    <div id="clock">09:00</div>
+    <div id="radio">LUZ FM 101.5 — Synthwave</div>
+  </div>
+  <div id="objective" class="panel">
+    <div class="mission" id="missionname">FREE ROAM</div>
+    <div class="text" id="objectivetext">Explore Porto Luz. Press M for a mission.</div>
+    <div class="dist" id="objectivedist"></div>
+  </div>
+  <canvas id="minimap" width="200" height="200"></canvas>
+  <div id="speedo"><span id="speed">0</span><small id="speedunit">km/h · on foot</small></div>
+  <div id="prompt"></div>
+  <div id="banner"></div>
+  <div id="toast"></div>
+  <div id="crosshair"></div>
+  <div id="help" class="panel">WASD move / drive · Mouse drag camera<br>E enter &amp; steal car · F punch · Click shoot<br>Space brake · Shift sprint · H horn<br>R radio · M mission · P pause · Esc menu</div>
+</div>
+
+<div id="title" class="overlay">
+  <h1>PORTO LUZ</h1>
+  <p>Sun-soaked streets. Fast cars. One driver with something to prove.<br>
+  <b>Mara Voss</b> is back in Porto Luz — and Dario Marin has twelve jobs for her.</p>
+  <div>
+    <button id="btn-continue">Continue</button>
+    <button id="btn-new">New Game</button>
+    <button id="btn-how" class="ghost">How to play</button>
+  </div>
+  <p class="keys" id="howto" style="display:none">WASD — walk / drive &nbsp;·&nbsp; Mouse drag — camera &nbsp;·&nbsp; Wheel — zoom<br>
+  E — enter or steal a car &nbsp;·&nbsp; F — punch &nbsp;·&nbsp; Mouse click — shoot &nbsp;·&nbsp; Space — brake<br>
+  Shift — sprint &nbsp;·&nbsp; H — horn &nbsp;·&nbsp; R — radio station &nbsp;·&nbsp; M — start next mission &nbsp;·&nbsp; P — pause<br>
+  Steal cars, take jobs, and watch your wanted level. At 3 stars the helicopter comes.</p>
+  <p class="keys">An original game. No Rockstar assets, names or characters.</p>
+</div>
+
+<div id="pause" class="overlay hidden">
+  <h2>PAUSED</h2>
+  <p>Porto Luz waits for no one. Well — except now.</p>
+  <div>
+    <button id="btn-resume">Resume</button>
+    <button id="btn-save" class="ghost">Save game</button>
+    <button id="btn-quit" class="ghost">Quit to title</button>
+  </div>
+</div>
+
+<div id="over" class="overlay hidden">
+  <h2 id="over-title">WASTED</h2>
+  <p id="over-text">Mara is down. The crew picks her up at the hospital.</p>
+  <div><button id="btn-retry">Back on the streets</button></div>
+</div>
+
+<div id="shop" class="overlay hidden">
+  <h2 id="shop-title">Shop</h2>
+  <div id="shopitems"></div>
+  <div><button id="btn-closeshop" class="ghost">Leave</button></div>
+</div>
+
+<script src="./vendor/three.min.js"></script>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
