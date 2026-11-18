@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — keyboard and mouse: every key the game uses, in one map.
 // Keyboard and mouse: WASD to move/drive, mouse drag to orbit the camera, wheel
 // to zoom. Every key the game uses is listed here, so the help screen and the HUD
 // never drift apart.

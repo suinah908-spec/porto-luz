@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — cars: built from boxes, driven arcade-style, plus traffic.
 // Cars: how one is built from boxes, how it drives, and the traffic that fills
 // the city. A car is a THREE.Group with a body, cabin, four wheels, headlights
 // and taillights; the physics is arcade — speed, steering and grip — so it feels

@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — the HUD: cash, health, wanted stars, objective and minimap.
 // The HUD: cash, health, wanted stars, the mission objective, the speedometer,
 // the minimap, prompts, banners and the shop. All DOM — the 3D canvas stays clean.
 import { CITY, MISSIONS } from './config.js';

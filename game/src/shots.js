@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — the screenshot scenes: real play, steered by an autopilot.
 // The screenshot scenes behind ?shot=cover|drive|mission|start. Each one plays the
 // real rules forward from a fresh world for a fixed number of steps, steered by a
 // simple autopilot, so the frame is what real play looks like and the same seed

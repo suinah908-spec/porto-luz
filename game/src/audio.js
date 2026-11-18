@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — synthesized WebAudio sound: engine, sirens, gunshots and radio.
 // Sound, all synthesized with WebAudio — no audio files, nothing fetched:
 // engine hum, sirens, gunshots, horns, and three radio stations of looping chiptune.
 import { RADIO } from './config.js';

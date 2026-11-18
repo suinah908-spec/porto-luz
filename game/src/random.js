@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — seeded randomness: one seed, one city, one traffic pattern.
 // Seeded randomness for Porto Luz: mulberry32, so one seed always builds the
 // same city, the same traffic and the same screenshot scenes.
 export function createRandom(seed) {

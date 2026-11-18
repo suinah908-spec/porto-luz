@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — Mara Voss, on foot and behind the wheel.
 // Mara Voss, on foot and behind the wheel: walking, sprinting, punching, shooting,
 // entering and stealing cars, and taking damage. The camera follows from behind.
 import { PALETTE, PLAYER } from './config.js';

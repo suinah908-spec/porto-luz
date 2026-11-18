@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — the people of Porto Luz: strollers, crossers, runners.
 // Pedestrians: the people of Porto Luz. They stroll the sidewalks, cross at
 // corners, and run when a crime happens near them. A few are attackers during
 // defend missions.

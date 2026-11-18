@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — the entry program: copies game/ and screenshots/ to /output and writes the dossier.
 // PORTO LUZ — a working gta6-01 entry (Node 22, standard library only): the game is
 // this directory's game/ folder, plain static files a desktop browser loads offline
 // (game/index.html and its ES modules, plus the vendored Three.js library, and no

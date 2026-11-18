@@ -1,3 +1,4 @@
+// PORTO LUZ v2.1 — the wanted system: stars, chases, rams and the helicopter.
 // The wanted system: stars, police cars that chase and ram, and the helicopter
 // that arrives at three stars. Heat rises with crimes and falls when the player hides.
 import { WANTED } from './config.js';
